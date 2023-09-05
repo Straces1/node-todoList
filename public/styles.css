@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: rgb(168, 168, 168);
+    font-family: 'Noto Serif';
+
+}
+.container {
+    width: 90vw;
+    margin-left: 30px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 100px;
+
+    padding: 30px;
+
+}
+.todos {
+    display: flex;
+    flex-direction: column;
+}
+h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+h2 {
+    margin: 0;
+    margin-top: 5px;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.todo {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    
+
+}
+.controls {
+    margin: auto 0;
+}
+button {
+    border: 1px solid rgb(55, 55, 55);
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:active {
+    border: 2px solid rgb(57, 49, 49);
+}
+.todo button {
+    
+    height: 30px;
+    width: auto;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    margin-right: 30px;
+
+}
+input, select{
+    height: 30px;
+    font-size: 1.1rem;
+    padding: 0 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(55, 55, 55);
+}
+label {
+    margin-top: 10px;
+}
+form button {
+    height: 30px;
+    margin-top: 30px;
+}
+.todo button.delete {
+    background: rgb(226, 122, 122);
+}

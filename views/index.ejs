@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs')  %>
+<body>
+    <h1>This is full stack Todo App dude!</h1>
+    <div class="container">
+        <div class="todos">
+            <% if(todos.length > 0) { %>
+                <% todos.forEach(todo => { %>
+                    <div class="todo">
+                        <div class="name">
+                            <h2 
+                                class="todoName"
+                                <% if(todo.checked){ %>
+                                    style="text-decoration: line-through;color: rgb(86, 86, 86);"
+                                <% } %>
+                            >
+                                <%= todo.title %>
+                            </h2>
+                            <p><%= todo.body %></p>
+                        </div>
+                        <div class="controls">
+                            <button class="finished" data-doc="<%= todo._id %>" onclick="handleCheck(dataset.doc)">Mark finished</button>
+                            <button class="delete" data-doc="<%= todo._id %>" onclick="handleDelete(dataset.doc)">Delete</button>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No todos to display</p>
+            <% } %>
+        </div>
+
+        <form action="/todos" method="POST">
+            <h2>Insert new task</h2>
+            <label for="title">Task:</label>
+            <input type="text" name="title" id="title" required>
+            <label for="body">Note:</label>
+            <input type="text" name="body" id="body">
+            <label for="checked">Status:</label>
+            <select name="checked" id="checked">
+                <option value="false">Unfinished</option>
+                <option value="true">Finished</option>
+            </select>
+            <button>Submit</button>
+        </form>
+    </div>
+    
+<script>
+
+    function handleDelete(id) {
+        const endpoint = `/todos/${id}`
+
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+            //.then(response => response.json())
+            .then(data => window.location.href = '/todos')
+            .catch(err => console.log(err))
+    }
+
+    function handleCheck(id) {
+        const endpoint = `/todos/${id}`
+
+        fetch(endpoint, {
+            method: 'PATCH'
+        })
+            .then(data => window.location.href = '/todos')
+            .catch(err => console.log(err))
+    }
+</script>
+</body>
+</html>
