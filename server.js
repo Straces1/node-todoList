@@ -28,8 +28,9 @@ app.use((req, res, next) => {
 app.set('view engine', 'ejs')
 
 // databese connection
+const port = process.env.PORT || 3000
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => app.listen(process.env.PORT))
+    .then((result) => app.listen(port))
     .catch((err) => console.log(err))
 
 
