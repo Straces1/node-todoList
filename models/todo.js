@@ -13,6 +13,10 @@ const todoSchema = new Schema({
     checked: {
         type: Boolean,
         required: false,
+    },
+    user_id: {
+        type: String,
+        required: false
     }
 
 }, {timestamps: true})

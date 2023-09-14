@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs')  %>
+<body>
+    <%- include('./partials/navbar.ejs')  %>
+    <form class="signup">
+        <h2>Login as an existing user:</h2>
+        <label for="name">Name:</label>
+        <input type="text" name="name">
+        <div class="name error"></div>
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+        <div class="password error"></div>
+        <Button>Login</Button>
+    </form>
+</body>
+
+<script>
+    const form = document.querySelector('form')
+    const nameErrDiv = document.querySelector('.name.error')
+    const passwordErrDiv = document.querySelector('.password.error')
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        nameErrDiv.textContent = '';
+        passwordErrDiv.textContent= '';
+
+        const name = form.name.value;
+        const password = form.password.value;
+
+        try {
+            const res = await fetch('/login', {
+                method: 'POST',
+                body: JSON.stringify({name, password}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json()
+            console.log(data)
+            // window.location.href = '/'
+            if(data.errors) {
+                nameErrDiv.textContent = data.errors.name
+                passwordErrDiv.textContent = data.errors.password
+            } else {
+                window.location.href = '/'
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    })
+</script>
+</html>

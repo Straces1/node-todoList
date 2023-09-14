@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/navbar.ejs')  %>
+    <div class="dash-container">
+        <h1>Details</h1>
+    <p>Name: <span style="text-transform: capitalize;"><%= userDetail.name %></span></p>
+    <h3>
+        <span style="text-transform: capitalize;">
+            <%= userDetail.name %>
+        </span> has <%= usersTodos.length %> <% if(usersTodos.length === 1){ %>todo<% } else { %>todos<% } %>
+    </h3>
+    <div class="dash-todos">
+        <% if(usersTodos.length > 0) { %>
+            <% usersTodos.forEach(todo => { %>
+                <ul>
+                    <li>
+                        
+                            <h3><%= todo.title %></h3>
+                            <span><%= todo.body %></span>
+                            <span><% if(todo.checked === true) { %>finished<% } else { %>unfinished<% } %></span>
+                   
+                    </li>
+                </ul>
+            <% }) %>
+        <% } else { %>
+            <p>No todos to display</p>
+        <% } %>
+    </div>
+    </div>
+</body>
+</html>

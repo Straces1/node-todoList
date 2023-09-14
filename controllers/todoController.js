@@ -5,7 +5,8 @@ const todo_index = (req, res) => {
 }
 
 const get_todos = (req, res) => {
-    ToDo.find().sort({ createdAt: 1 })
+    const user_id = req.body.user_id
+    ToDo.find({user_id}).sort({ createdAt: 1 })
         .then((result) => {
             res.render('index', {todos: result})
         })
@@ -19,6 +20,7 @@ const post_todo = (req, res) => {
     todo.save()
         .then(result => {
             console.log('todo saved')
+            console.log(req)
             res.redirect('/') 
         })
         .catch((err) => {

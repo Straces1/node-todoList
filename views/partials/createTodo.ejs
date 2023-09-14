@@ -1,0 +1,17 @@
+<form 
+action="/todos" 
+method="POST"   
+>
+    <h2>Insert new task</h2>
+    <label for="title">Task:</label>
+    <input type="text" name="title" id="title" required>
+    <label for="body">Note:</label>
+    <input type="text" name="body" id="body">
+    <label for="checked">Status:</label>
+    <select name="checked" id="checked">
+        <option value="false">Unfinished</option>
+        <option value="true">Finished</option>
+    </select>
+    <button>Submit</button>
+    
+</form>

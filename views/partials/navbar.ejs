@@ -1,0 +1,37 @@
+<nav>
+    <div><a href="/"><h1>todo app</h1></a></div>
+    <ul>
+        <% if(user) { %>
+            <li class="welcome">Hello, <%= user.name  %></li>
+            <% if(user.name === 'admin') { %>
+                <li><a href=/dashboard>Dashboard</a></li>
+            <% } else null %>
+            <button class="logout">Logout</button>
+        <% } else {%>
+        <li><a href="/signup">Signup</a></li>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+</nav>
+
+<div class="modal">
+    <div class="modal-box"><p>See you soon </p></div>
+</div>
+
+
+<script>
+
+    const btn = document.querySelector('.logout')
+    const modalWin = document.querySelector('.modal') 
+
+    if(btn) {
+        btn.addEventListener('click', () => {
+            modalWin.style.display = 'block'
+            setTimeout(() => {
+                window.location.href = '/logout'
+                modalWin.style.display = 'none'
+                
+            }, 2000)
+        })
+    }
+</script>

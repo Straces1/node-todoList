@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs')  %>
+<body>
+    <%- include('./partials/navbar.ejs')  %>
+    <div class="dash-container">
+        <h1>This is admins page</h1>
+        <h2>Here you can manage current users</h2>
+    </br>
+        <p>Number of todos in the database: <%= todos.length %></p>
+        <p>Number of users in the database: <%= users.length %></p>
+
+
+        <div class="user-board">
+            <div class="dash-headers">
+                <span>Name</span>
+                <span>Created at</span>
+            </div>
+            
+
+            <% if (users.length > 0) { %>
+ 
+                <% users.forEach(user => { %>
+
+                    <div class="dash-user">
+                        <%= user.name %>
+                        <span class="date"><%= moment(user.createdAt).format('Do MMM, YYYY') %></span>
+                        <% if(user.name === 'admin') { %>
+                            <span class="token">can't delete</span>
+                        <% } else { %>
+                            <div class="controls">
+                                <button class="delete" data-doc="<%= user._id %>" onclick="handlePopup(dataset.doc)">
+                                    <span class="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                </button>
+                                <a class="detail-btn" href="/dashboard/<%= user._id %>">Details</a>
+                            </div>
+                        <% } %>
+                    </div>
+
+                <% }) %>
+            <% } else { %>
+
+                <p>No users to display</p>
+
+            <% } %>
+        </div>
+    </div>
+    <div class="modal-cover">
+        <div class="admin-popup" >
+            <p>Are you sure you want to delete this user <span class="name-tag"></span></p>
+            <span>
+                <button class="yes-btn">Yes</button>
+                <button class="no-btn">No</button>
+            </span>
+        </div>
+    </div>
+</body>
+
+<script>
+    const popUp = document.querySelector('.modal-cover')
+    const yesBtn = document.querySelector('.yes-btn')
+    const noBtn = document.querySelector('.no-btn')
+    const nameTag = document.querySelector('.name-tag')
+
+    const handlePopup = (id) => {
+        
+        popUp.style.display = 'block'
+        noBtn.addEventListener('click',() => {
+            popUp.style.display = 'none'
+        })
+        yesBtn.addEventListener('click', () => {
+            const endpoint = `/dashboard/${id}`
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+                
+                .then(data => window.location.href = '/dashboard')
+                .then(popUp.style.display = 'none')
+                .catch(err => console.log(err))
+            
+        })
+
+    }
+    const handleDelete = (id) => {
+        // alert('Are you sure you want to delete this user?')
+        const endpoint = `/dashboard/${id}`
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+            .then(data => window.location.href = '/dashboard')
+            .catch(err => console.log(err))
+    }
+
+    // const handleClick = (id) => {
+    //     const endpoint = `/dashboard/${id}`
+    //     fetch(endpoint, {
+    //         method: 'GET'
+    //     })
+    // }
+</script>
+
+</html>
